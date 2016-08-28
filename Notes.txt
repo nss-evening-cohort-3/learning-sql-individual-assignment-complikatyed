@@ -1,0 +1,28 @@
+Provide a query that shows the invoices associated with each sales agent. The resultant table should include the Sales Agent's full name.
+
+// Returns all invoice data, employee data, customer data,
+// BUT does not allow individual pieces to be selected efficiently
+SELECT * FROM Invoice JOIN Customer ON Customer.CustomerId == Invoice.CustomerId JOIN Employee ON Customer.SupportRepId == Employee.EmployeeId
+
+// Returns the customer's first and last name from the invoices
+SELECT SalesInvoices.FirstName || ' ' || SalesInvoices.LastName FROM (SELECT * FROM Invoice JOIN Customer ON Customer.CustomerId == Invoice.CustomerId JOIN Employee ON Customer.SupportRepId == Employee.EmployeeId)AS SalesInvoices
+
+// Returns the customer's first and last names, invoice total.
+// and customer country -- cannot yet include sales rep names
+SELECT SalesInvoices.FirstName || ' ' || SalesInvoices.LastName AS 'Customer Name', SalesInvoices.Total, SalesInvoices.Country FROM (SELECT * FROM Invoice JOIN Customer ON Customer.CustomerId == Invoice.CustomerId JOIN Employee ON Customer.SupportRepId == Employee.EmployeeId) AS SalesInvoices
+
+
+
+// Capturing all the sales rep first and last names:
+SELECT SalesReps.FirstName || ' ' || SalesReps.LastName FROM (SELECT * FROM Employee JOIN Customer ON Customer.SupportRepId == Employee.EmployeeId)AS SalesReps
+
+// Capturing the sales rep's full name and his/her invoice ids:
+SELECT SalesReps.FirstName || ' ' || SalesReps.LastName, Invoice.InvoiceId FROM (SELECT * FROM Employee JOIN Customer ON Customer.SupportRepId == Employee.EmployeeId) AS SalesReps JOIN Invoice ON Invoice.CustomerId == SalesReps.CustomerId
+
+
+// Capturing the sales reps with names and complete invoices:
+SELECT SalesReps.FirstName || ' ' || SalesReps.LastName, Invoice.* FROM (SELECT * FROM Employee JOIN Customer ON Customer.SupportRepId == Employee.EmployeeId) AS SalesReps JOIN Invoice ON Invoice.CustomerId == SalesReps.CustomerId
+
+
+// Capturing sales rep names and complete invoices, ordered by sales rep name:
+SELECT SalesReps.FirstName || ' ' || SalesReps.LastName, Invoice.* FROM (SELECT * FROM Employee JOIN Customer ON Customer.SupportRepId == Employee.EmployeeId) AS SalesReps JOIN Invoice ON Invoice.CustomerId == SalesReps.CustomerId ORDER BY SalesReps.FirstName || ' ' || SalesReps.LastName
