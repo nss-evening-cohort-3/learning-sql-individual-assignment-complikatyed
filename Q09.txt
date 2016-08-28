@@ -1,0 +1,7 @@
+// Counts the # of invoices from 2009 (83) and their total (449.46)
+
+    SELECT SUM(Total), COUNT(InvoiceId) FROM Invoice WHERE InvoiceDate >= '20080101 00:00:00.000' AND InvoiceDate < '20091231 00:00:00.000'
+
+// Counts the # of invoices from 2011 (83) and their total (469.58)
+
+    SELECT SUM(Total), COUNT(InvoiceId) FROM Invoice WHERE InvoiceDate >= '20100101 00:00:00.000' AND InvoiceDate < '20111231 00:00:00.000' 
