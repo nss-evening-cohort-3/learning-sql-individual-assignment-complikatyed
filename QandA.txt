@@ -48,9 +48,11 @@
 
 12. Provide a query that includes the track name with each invoice line item.  
 
+    SELECT InvoiceLineId, Track.Name FROM InvoiceLine JOIN Track ON Track.TrackId == InvoiceLine.TrackId 
 
 13. Provide a query that includes the purchased track name AND artist name with each invoice line item.  
 
+    SELECT Name AS 'Artist', Title AS 'Purchased Track Title', InvoiceLineId AS 'Invoice Line Item' FROM (SELECT Title, ArtistId, InvoiceLineId FROM (SELECT * FROM InvoiceLine JOIN Track ON Track.TrackId == InvoiceLine.TrackId)AS TrackStuff JOIN Album ON Album.AlbumId == TrackStuff.AlbumId) AS AlbumStuff JOIN Artist ON Artist.ArtistId == AlbumStuff.ArtistId
 
 14. Provide a query that shows the # of invoices per country. HINT: [GROUP BY](http://www.sqlite.org/lang_select.html#resultset)  
 

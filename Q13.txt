@@ -1,0 +1,1 @@
+SELECT Name AS 'Artist', Title AS 'Purchased Track Title', InvoiceLineId AS 'Invoice Line Item' FROM (SELECT Title, ArtistId, InvoiceLineId FROM (SELECT * FROM InvoiceLine JOIN Track ON Track.TrackId == InvoiceLine.TrackId)AS TrackStuff JOIN Album ON Album.AlbumId == TrackStuff.AlbumId) AS AlbumStuff JOIN Artist ON Artist.ArtistId == AlbumStuff.ArtistId
