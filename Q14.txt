@@ -1,1 +1,1 @@
-SELECT * FROM Employee WHERE Title IS 'Sales Support Agent'
+SELECT InvoiceId, BillingCountry FROM Invoice GROUP BY BillingCountry ORDER BY InvoiceId DESC
