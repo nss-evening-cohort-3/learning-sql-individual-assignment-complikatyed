@@ -1,0 +1,1 @@
+SELECT SUM(Total), SalesReps.FirstName || ' ' || SalesReps.LastName FROM (SELECT * FROM Employee JOIN Customer ON Customer.SupportRepId == Employee.EmployeeId) AS SalesReps JOIN Invoice ON Invoice.CustomerId == SalesReps.CustomerId GROUP BY SalesReps.EmployeeId
