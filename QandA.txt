@@ -87,11 +87,32 @@
 
 19. Which sales agent made the most in sales in 2009? HINT: [MAX](https://www.sqlite.org/lang_aggfunc.html#maxggunc)  
 
+    // This one required either 'sum' or 'total' instead of 'max' -- 'max' returned the single biggest sale (in case we need that one later)
+
+    SELECT Employee.FirstName || ' ' || Employee.LastName AS "Sales Rep", SUM(Total) AS "Total Sales" FROM Invoice
+    JOIN Customer
+      ON Invoice.CustomerId == Customer.CustomerId
+    JOIN Employee
+      ON Customer.SupportRepId == Employee.EmployeeId WHERE InvoiceDate >= '2009-01-01 00:00:00.000' AND InvoiceDate < '2009-12-31 23:00:00.000'
+    GROUP BY Employee.EmployeeId ORDER BY "Total Sales" DESC LIMIT(1)
 
 20. Which sales agent made the most in sales in 2010?  
 
+    SELECT Employee.FirstName || ' ' || Employee.LastName AS "Sales Rep", SUM(Total) AS "Total Sales" FROM Invoice
+    JOIN Customer
+      ON Invoice.CustomerId == Customer.CustomerId
+    JOIN Employee
+      ON Customer.SupportRepId == Employee.EmployeeId WHERE InvoiceDate >= '2010-01-01 00:00:00.000' AND InvoiceDate < '2010-12-31 23:00:00.000'
+    GROUP BY Employee.EmployeeId ORDER BY "Total Sales" DESC LIMIT(1)
 
 21. Which sales agent made the most in sales over all?  
+
+    SELECT Employee.FirstName || ' ' || Employee.LastName AS "Sales Rep", SUM(Total) AS "Total Sales" FROM Invoice
+    JOIN Customer
+      ON Invoice.CustomerId == Customer.CustomerId
+    JOIN Employee
+      ON Customer.SupportRepId == Employee.EmployeeId 
+    GROUP BY Employee.EmployeeId ORDER BY "Total Sales" DESC LIMIT(1)
 
 
 22. Provide a query that shows the # of customers assigned to each sales agent.  
