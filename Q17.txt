@@ -1,0 +1,1 @@
+SELECT Invoice.InvoiceId AS 'Invoice Number', SUM(Quantity) AS 'Total Line Items'  FROM Invoice JOIN InvoiceLine ON Invoice.InvoiceId == InvoiceLine.InvoiceId GROUP BY InvoiceLine.InvoiceId

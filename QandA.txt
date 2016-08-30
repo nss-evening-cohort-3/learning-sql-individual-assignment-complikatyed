@@ -64,16 +64,22 @@
 
 ** 16. Provide a query that shows all the Tracks, but displays no IDs. The resultant table should include the Album name, Media type and Genre.  
 
-    // TrackData.GenreId, TrackData.Name(Track Name), TrackData.AlbumId, MediaType.Name
-
-    SELECT TrackData.Name, TrackData.AlbumId, MediaType.Name, TrackData.GenreId FROM (SELECT Name, AlbumId, MediaTypeId, GenreId FROM Track)AS TrackData JOIN MediaType ON TrackData.MediaTypeId == MediaType.MediaTypeId
-
-
-    THIS ONE NEEDS SOME EXTRA WORK, STILL KIND OF A MESS...
+    SELECT Track.Name AS 'Song Title', Album.Title AS 'Album Title', MediaType.Name AS 'Media Type', Genre.Name AS 'Genre' FROM InvoiceLine
+    JOIN Track
+        ON Track.TrackId == InvoiceLine.TrackId
+    JOIN Album
+        ON Track.AlbumId == Album.AlbumId
+    JOIN Artist
+        ON Album.ArtistId == Artist.ArtistId
+    JOIN MediaType
+         ON Track.MediaTypeId == MediaType.MediaTypeId
+    JOIN Genre
+          ON Track.GenreId == Genre.GenreId
+    ORDER BY InvoiceLineId
 
 17. Provide a query that shows all Invoices but includes the # of invoice line items.  
 
-
+    SELECT Invoice.InvoiceId AS 'Invoice Number', SUM(Quantity) AS 'Total Line Items'  FROM Invoice JOIN InvoiceLine ON Invoice.InvoiceId == InvoiceLine.InvoiceId GROUP BY InvoiceLine.InvoiceId
 
 18. Provide a query that shows total sales made by each sales agent.  
 
@@ -81,17 +87,25 @@
 
 19. Which sales agent made the most in sales in 2009? HINT: [MAX](https://www.sqlite.org/lang_aggfunc.html#maxggunc)  
 
+    // This one required either 'sum' or 'total' instead of 'max' -- 'max' returned the single biggest sale (in case we need that one later)
+
+    SELECT Employee.FirstName || ' ' || Employee.LastName AS "Sales Rep", SUM(Total) AS "Total Sales" FROM Invoice JOIN Customer ON Invoice.CustomerId == Customer.CustomerId JOIN Employee ON Customer.SupportRepId == Employee.EmployeeId WHERE InvoiceDate >= '2009-01-01 00:00:00.000' AND InvoiceDate < '2009-12-31 23:00:00.000' GROUP BY Employee.EmployeeId ORDER BY "Total Sales" DESC LIMIT(1)
 
 20. Which sales agent made the most in sales in 2010?  
 
+    SELECT Employee.FirstName || ' ' || Employee.LastName AS "Sales Rep", SUM(Total) AS "Total Sales" FROM Invoice JOIN Customer ON Invoice.CustomerId == Customer.CustomerId JOIN Employee ON Customer.SupportRepId == Employee.EmployeeId WHERE InvoiceDate >= '2010-01-01 00:00:00.000' AND InvoiceDate < '2010-12-31 23:00:00.000' GROUP BY Employee.EmployeeId ORDER BY "Total Sales" DESC LIMIT(1)
 
 21. Which sales agent made the most in sales over all?  
 
+    SELECT Employee.FirstName || ' ' || Employee.LastName AS "Sales Rep", SUM(Total) AS "Total Sales" FROM Invoice JOIN Customer ON Invoice.CustomerId == Customer.CustomerId JOIN Employee ON Customer.SupportRepId == Employee.EmployeeId GROUP BY Employee.EmployeeId ORDER BY "Total Sales" DESC LIMIT(1)
 
 22. Provide a query that shows the # of customers assigned to each sales agent.  
 
+    SELECT Employee.FirstName || ' ' || Employee.LastName AS "Sales Rep", MAX(CustomerId) AS "Total Customers"  FROM Customer JOIN Employee ON Customer.SupportRepId == Employee.EmployeeId GROUP BY EmployeeId
 
 23. Provide a query that shows the total sales per country. Which country's customers spent the most?  
+
+
 
 
 24. Provide a query that shows the most purchased track of 2013.  
