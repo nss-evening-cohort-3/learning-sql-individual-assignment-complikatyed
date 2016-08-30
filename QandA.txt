@@ -105,10 +105,10 @@
 
 23. Provide a query that shows the total sales per country. Which country's customers spent the most?  
 
-
-
+    SELECT Employee.FirstName || ' ' || Employee.LastName AS "Sales Rep", SUM(Total) AS "Total Sales" FROM Invoice JOIN Customer ON Invoice.CustomerId == Customer.CustomerId JOIN Employee ON Customer.SupportRepId == Employee.EmployeeId WHERE InvoiceDate >= '2009-01-01 00:00:00.000' AND InvoiceDate < '2009-12-31 23:00:00.000' GROUP BY Employee.EmployeeId ORDER BY "Total Sales" DESC LIMIT(1)
 
 24. Provide a query that shows the most purchased track of 2013.  
+
 
 
 25. Provide a query that shows the top 5 most purchased tracks over all.  
@@ -118,3 +118,5 @@
 
 
 27. Provide a query that shows the most purchased Media Type.  
+
+    SELECT Track.TrackId, MediaType.Name FROM InvoiceLine JOIN Track ON Track.TrackId == InvoiceLine.TrackId JOIN Album ON Track.AlbumId == Album.AlbumId JOIN Artist ON Album.ArtistId == Artist.ArtistId JOIN MediaType ON Track.MediaTypeId == MediaType.MediaTypeId JOIN Genre ON Track.GenreId == Genre.GenreId GROUP BY MediaType.Name ORDER BY Track.TrackId DESC LIMIT(1)
