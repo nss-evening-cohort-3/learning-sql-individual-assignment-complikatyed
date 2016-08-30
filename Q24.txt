@@ -1,0 +1,1 @@
+SELECT SUM(InvoiceLine.Quantity) AS "Times Purchased", Track.TrackId, Track.Name FROM Invoice JOIN InvoiceLine ON Invoice.InvoiceId == InvoiceLine.InvoiceId JOIN Track ON Track.TrackId == InvoiceLine.TrackId WHERE Invoice.InvoiceDate >= '2013-01-01 00:00:00.000' AND Invoice.InvoiceDate < '2013-12-31 23:00:00.000' GROUP BY Track.Name ORDER BY "Times Purchased" DESC LIMIT(10)

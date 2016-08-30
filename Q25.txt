@@ -1,0 +1,1 @@
+SELECT Track.Name, SUM(InvoiceLine.Quantity) AS "Times Purchased" FROM InvoiceLine JOIN Track ON Track.TrackId == InvoiceLine.TrackId GROUP BY Track.Name ORDER BY "Times Purchased" DESC LIMIT(5)

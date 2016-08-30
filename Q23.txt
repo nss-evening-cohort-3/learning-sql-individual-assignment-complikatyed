@@ -1,0 +1,1 @@
+SELECT Country, SUM(Total) AS "Total Spent" FROM Invoice JOIN Customer ON Invoice.CustomerId == Customer.CustomerId GROUP BY Country ORDER BY "Total Spent" DESC LIMIT(1)
