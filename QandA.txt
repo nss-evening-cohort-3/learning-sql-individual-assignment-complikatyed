@@ -64,16 +64,22 @@
 
 ** 16. Provide a query that shows all the Tracks, but displays no IDs. The resultant table should include the Album name, Media type and Genre.  
 
-    // TrackData.GenreId, TrackData.Name(Track Name), TrackData.AlbumId, MediaType.Name
-
-    SELECT TrackData.Name, TrackData.AlbumId, MediaType.Name, TrackData.GenreId FROM (SELECT Name, AlbumId, MediaTypeId, GenreId FROM Track)AS TrackData JOIN MediaType ON TrackData.MediaTypeId == MediaType.MediaTypeId
-
-
-    THIS ONE NEEDS SOME EXTRA WORK, STILL KIND OF A MESS...
+    SELECT Track.Name AS 'Song Title', Album.Title AS 'Album Title', MediaType.Name AS 'Media Type', Genre.Name AS 'Genre' FROM InvoiceLine
+    JOIN Track
+        ON Track.TrackId == InvoiceLine.TrackId
+    JOIN Album
+        ON Track.AlbumId == Album.AlbumId
+    JOIN Artist
+        ON Album.ArtistId == Artist.ArtistId
+    JOIN MediaType
+         ON Track.MediaTypeId == MediaType.MediaTypeId
+    JOIN Genre
+          ON Track.GenreId == Genre.GenreId
+    ORDER BY InvoiceLineId
 
 17. Provide a query that shows all Invoices but includes the # of invoice line items.  
 
-
+    SELECT Invoice.InvoiceId AS 'Invoice Number', SUM(Quantity) AS 'Total Line Items'  FROM Invoice JOIN InvoiceLine ON Invoice.InvoiceId == InvoiceLine.InvoiceId GROUP BY InvoiceLine.InvoiceId
 
 18. Provide a query that shows total sales made by each sales agent.  
 
