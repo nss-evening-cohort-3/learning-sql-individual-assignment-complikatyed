@@ -1,0 +1,1 @@
+SELECT Employee.FirstName || ' ' || Employee.LastName AS "Sales Rep", MAX(CustomerId) AS "Total Customers"  FROM Customer JOIN Employee ON Customer.SupportRepId == Employee.EmployeeId GROUP BY EmployeeId

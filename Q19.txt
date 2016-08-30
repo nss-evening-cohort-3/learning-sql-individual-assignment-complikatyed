@@ -1,6 +1,1 @@
-    SELECT Employee.FirstName || ' ' || Employee.LastName AS "Sales Rep", SUM(Total) AS "Total Sales" FROM Invoice
-    JOIN Customer
-      ON Invoice.CustomerId == Customer.CustomerId
-    JOIN Employee
-      ON Customer.SupportRepId == Employee.EmployeeId WHERE InvoiceDate >= '2009-01-01 00:00:00.000' AND InvoiceDate < '2009-12-31 23:00:00.000'
-    GROUP BY Employee.EmployeeId ORDER BY "Total Sales" DESC LIMIT(1)
+SELECT Employee.FirstName || ' ' || Employee.LastName AS "Sales Rep", SUM(Total) AS "Total Sales" FROM Invoice JOIN Customer ON Invoice.CustomerId == Customer.CustomerId JOIN Employee ON Customer.SupportRepId == Employee.EmployeeId WHERE InvoiceDate >= '2009-01-01 00:00:00.000' AND InvoiceDate < '2009-12-31 23:00:00.000' GROUP BY Employee.EmployeeId ORDER BY "Total Sales" DESC LIMIT(1)
